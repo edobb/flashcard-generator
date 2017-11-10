@@ -8,7 +8,7 @@ function BasicCard(front, back) {
 
 BasicCard.prototype.saveCard = function() {
 
-    fs.appendFile("flashcards.txt", this.front + "- " + this.back + ",", function(err){
+    fs.appendFile("flashcards.txt", this.front + "," + this.back + ",", function(err){
         
         if (err){
             return console.log(err);
@@ -22,20 +22,28 @@ BasicCard.prototype.randomCard = function() {
             if (error){
             return console.log(error);
             }
-           
+            var arr = [];
             var output = data.split(",");
             for(i = 0; i < output.length; i++){
-                
-                        console.log(output[i]);
+                arr.push(output[i])
+                        console.log(arr);
                     }
-           
-            
-        
-        
+                    var evenNumber = Math.floor((Math.random() * output.length));
+                    if (evenNumber % 2 !== 0 && evenNumber !== 0){
+                        evenNumber = evenNumber + 1;
+                    }
+                    var oddNumber = evenNumber + 1;
+
+                    var displayCard = new BasicCard(evenNumber, oddNumber);
+                    
+    
         
         });
     
 };
+
+
+
 module.exports = BasicCard;
 
 

@@ -1,5 +1,32 @@
 var BasicCard = require("./BasicCard")
 var inquirer = require("inquirer");
+var fs = require("fs");
+
+function displayCard(even, odd){
+    fs.readFile("flashcards.txt", "utf8", function(error, data){
+        
+            if (error){
+            return console.log(error);
+            }
+            var output = [];
+            output = data.split(",");
+    
+
+    inquirer.prompt([
+        {
+        name: "question",
+        message: output[0]
+        }
+    ]).then(function(answers) {
+
+    if (answers.question === output[1]){
+        console.log('Correct');
+
+    }
+        
+        });
+    });
+    };
 
 inquirer.prompt([
     {
@@ -28,22 +55,7 @@ inquirer.prompt([
         });
     } 
     else if ( answers.doWhat === 'random') {
-        inquirer.prompt([
-            {
-            name: "question",
-            message: BasicCard.front
-            }
-        ]).then(function(answers) {
-        
-            for(i = 0; i < output.length; i++){
-                
-                        console.log(output[i]);
-                    }
-
-            flashCard.randomCard();
-            
-        });
-        
+        displayCard();
     }
 
 });//END INITIAL PROMPT
