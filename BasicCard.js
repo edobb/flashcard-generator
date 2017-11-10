@@ -1,9 +1,42 @@
+var fs = require("fs");
 
-//   * This file should define a Node module that exports a constructor for creating basic flashcards, e.g.:
-//   `module.exports = BasicCard;`
 
-// * The constructor should accept two arguments: `front` and `back`.
+function BasicCard(front, back) {
+    this.front = front;
+    this.back = back;
+}
 
-// * The constructed object should have a `front` property that contains the text on the front of the card.
+BasicCard.prototype.saveCard = function() {
 
-// * The constructed object should have a `back` property that contains the text on the back of the card.
+    fs.appendFile("flashcards.txt", this.front + "- " + this.back + ",", function(err){
+        
+        if (err){
+            return console.log(err);
+        }
+    });
+}
+
+BasicCard.prototype.randomCard = function() {
+    fs.readFile("flashcard.txt", "utf8", function(error, data){
+        
+            if (error){
+            return console.log(error);
+            }
+           
+            var output = data.split(",");
+            for(i = 0; i < output.length; i++){
+                
+                        console.log(output[i]);
+                    }
+           
+            
+        
+        
+        
+        });
+    
+};
+module.exports = BasicCard;
+
+
+
